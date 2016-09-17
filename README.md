@@ -82,11 +82,18 @@ On the other hand, do avoid premature pessimization. All other things, in partic
 
 2. This style guide does not intend to impose a definitive answer to the tabs vs. spaces question. Projects can follow either formatting convention, as long as all related projects are consistently written using the same style. The following two items provide suggestions for a sensible formatting style.
 
-3. Consider using tab characters for *logical* indentation, and spaces for additional *visual* indentation:
-
-  Use a mixture of tabs and spaces to indent broken lines; in this case tabs are to be used up to the current logical indentation level, followed by spaces for any further indentation (e.g. to line up statements). Do not use spaces for logical indentation, nor tabs for purely visual additional spacing.
+3. Either use all spaces, without use of tabs. Alternatively, consider using tab characters for *logical* indentation, and spaces for additional *visual* indentation. In this case, tabs are to be used up to the current logical indentation level, followed by spaces for any further indentation (e.g. to line up statements).
   
   Example:
+
+  ```
+    {
+    ····if ((x > 0 && x < width) ||     // pretend this is too long
+    ········(y > 0 && y < height))
+    }
+```
+
+  or
 
   ```
     {
@@ -94,17 +101,15 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     →   ····(y > 0 && y < height))
     }
 ```
-  - <small>Using tabs, navigation through code is more efficient in most editors (e.g. pressing backspace or ‘cursor left’ once instead of multiple times).</small>
-
-  - <small>Also, tabs provide a *logical* means for indentation instead of just a visual one, as opposed to spaces. Python even adopted tabs for enforced code structuring.</small>
+  - <small>Using tabs, navigation through code is more efficient in most editors (e.g. pressing backspace or ‘cursor left’ once instead of multiple times). When using spaces, reformatting often takes more key strokes, even in editors supporting "tabbed" spaces well.</small>
   
-    - <small>There is no problem with different tab spacing sizes for display purposes (see next item), as long as the above rule (logical vs. visual indentation) is followed consistently.</small>
+  - <small>When following the above suggestion consistently, there is no problem with different tab spacing sizes for display purposes.</small>
 
 4. The ideal tab spacing is 4 characters. Feel free to use an editor that displays a different tab width. Make sure to configure the editor in such a way that it does not replace tabs with spaces, if you have chosen to use tabs in your projects.
 
-  - <small>4 space characters (per tab) provide a very good compromise. Using 2 characters looks visually cramped and leads to reduced readability (“which indentation level is this now?”), and more than 4 characters unnecessarily inflates line lengths. 3 is just odd -- pun intended.</small>
+  - <small>4 space characters (per tab) provide a very good compromise. Using 2 characters may look visually cramped and lead to reduced readability (“which indentation level is this now?”), while using more than 4 characters unnecessarily inflates line lengths. 3 is just odd -- pun intended.</small>
 
-5. Opening braces (for classes, functions, control blocks, etc.) should *always* reside on a new empty line.
+5. Opening braces (for classes, functions, control blocks, etc.) should always reside on a new empty line.
 
   ```
     for (int i = 0; i < 4; ++i)
@@ -113,14 +118,14 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     }
 ```
 
-  Egyptian-style braces (where the opening brace is kept on the line end) are strongly discouraged.
+  Egyptian-style braces (where the opening brace is kept on the line end) are discouraged.
 
   ```
-    for (int i = 0; i < 4; ++i) {    // not allowed
+    for (int i = 0; i < 4; ++i) {    // discouraged
         // ...
     }
     
-    for (int i = 0; i < 4; ++i){     // not allowed
+    for (int i = 0; i < 4; ++i){     // even more discouraged
         // ...
     }
 ```
@@ -197,7 +202,7 @@ On the other hand, do avoid premature pessimization. All other things, in partic
 
   - <small>This greatly enhances code readability.</small>
 
-  - <small>It also fixes the unfortunate language defect inherited from C, where `int* p, q;` declares one pointer and one non-pointer variable. Obviously, writing `int* p, *q;` or even `int *p, *q;` should be avoided, as it would break the rule above.</small>
+  - <small>It also fixes the unfortunate language defect inherited from C, where `int* p, q;` declares one pointer and one non-pointer variable. Obviously, writing `int* p, *q;` or `int *p, *q;` should be avoided, as it would break the rule above.</small>
 
 9. Prefer not to arbitrarily align variable declaration/initialization groups.
 
@@ -270,18 +275,18 @@ The first one applies when the function name including arguments is short enough
   If the function arguments do not fit on one line, either list each function argument on its own line, indented by two tabs (or the equivalent number of spaces). In this case, do not specify the first argument on the same line as the function name:
   
   ```
-    void Foo<ElementType>::transmogrifyWidgetsAndGadgets(
-    →   →   const std::vector<Widget>& widgets,
-    →   →   const std::vector<Gadgets>& gadgets,
-    →   →   double transmogrificationFactor = 1.0);
+    void Foo<ElementType>::transmogrify_widgets_and_gadgets(  // no arguments on this line
+            const std::vector<Widget>& widgets,
+            const std::vector<Gadgets>& gadgets,
+            double transmogrification_factor = 1.0);
 ```
 
   Alternatively, line up all function arguments with whitespaces after the function name:
   
   ```
-    void Foo<Many, Tmplt, Pars>::functionName(const std::vector<Widget>& widgets,
-                                              const std::vector<Gadgets>& gadgets,
-                                              double transmogrificationFactor = 1.0);
+    void Foo<Many, Tmplt, Pars>::function_name(const std::vector<Widget>& widgets,
+                                               const std::vector<Gadgets>& gadgets,
+                                               double transmogrification_factor = 1.0);
 ```
 
   The third style quickly becomes problematic in combination with long functions names, in particular when the class qualifier includes a number of template parameters. Readability might be decreased due to the excessive line length/indent. It is also much more tedious to reformat whenever the function name changes. Hence, the first two styles are preferred.
@@ -304,7 +309,7 @@ The first one applies when the function name including arguments is short enough
 
   ```
     // This is a proper comment.
-    //Don’t omit the whitespace.
+    //Do not omit the whitespace.
 ```
   ```
     /* Don’t write cumbersome C-style comments either. */
@@ -331,6 +336,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
 1. There are generally two acceptable and internally consistent naming conventions.
 
   a) The "camel case" convention:
+  
   ```
   class AwesomeWidget;              // classes: upper-case & camel case
   double distanceFromPoint = 5.0;   // variables: lower-case & camel case
@@ -340,21 +346,21 @@ Also, this is one more reason to cleanly separate function declaration from defi
 ```
   Only class names start with an upper-case letter, whereas variable and function names start with a lower-case letter. All following syllables are directly connected to the preceding syllable and begin with an upper-case letter.
 
-  b) The "underscores" convention:
+  b) The "underscores" or "snake case" convention:
+  
   ```
-  class Awesome_Widget;              // classes: upper-case & underscore separators
+  class Awesome_widget;              // classes: begin upper-case & underscore separators
+  class AwesomeWidget;               // some use camel case here (Python-like)
   double distance_from_point = 5.0;  // variables: lower-case & underscore separators
   double compute_distance();         // functions: lower-case & underscore separators
-  double Awesome_Widget::get_foo();  // member functions: lower-case & underscore separators
-  enum class State { Corrupt_Data }; // enums: upper-case & underscore separators
+  double Awesome_widget::get_foo();  // member functions: lower-case & underscore separators
+  enum class State { corrupt_data }; // enums: like classes; elements lower-case & underscore separators
 ```
   Only class names start with an upper-case letter, whereas variable and function names start with a lower-case letter. All following syllables are separated by an underscore (`_`) and keep the case of the preceding syllable(s).
 
-  - <small>Camel case may be preferable to use of underscores, since the latter are considerably harder to type (quickly) several times in a word. There is no discernible difference in readability given names of reasonable length.</small>
+  - <small>Use one of these naming conventions consistently throughout all related projects. Do not mix styles or deviate from the chosen convention.</small>
 
-2. Use one of these naming conventions consistently throughout all related projects. Do not mix styles or deviate from the chosen convention.
-
-3. Class names and enumerations shall always begin with an upper-case letter, in order to cleanly distinguish them from (instance) variables. Never declare classes that begin with a lower-case letter.
+2. Class names and enumerations shall always begin with an upper-case letter, in order to cleanly distinguish them from (instance) variables. Never declare classes that begin with a lower-case letter.
 
   Example:
   
@@ -384,7 +390,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
 
   - <small>There shall be no `class` or `struct` name in the codebase that begins with a lower-case letter.</small>
 
-4. Variable names shall therefore always begin with a lower-case letter.
+3. Variable names shall therefore always begin with a lower-case letter.
 
   Example:
   
@@ -394,12 +400,12 @@ Also, this is one more reason to cleanly separate function declaration from defi
 ```
   - <small>There shall be no variable in the codebase that begins with an upper-case letter.</small>
 
-5. Both member and non-member functions shall always begin with a lower-case letter.
+4. Both member and non-member functions shall always begin with a lower-case letter.
 
   Example:
 
   ```
-    double computeDistance();
+    double compute_distance();
     const std::string& Window::name();
 ```
 
@@ -413,16 +419,16 @@ Also, this is one more reason to cleanly separate function declaration from defi
 
   - <small>There shall be no function or member function in the codebase that begins with an upper-case letter.</small>
 
-6. Any custom type names, e.g. in `typedef` or `using` statements, or in template declarations or definitions shall always begin with an uppercase letter.
+5. Any custom type names, e.g. in `typedef` or `using` statements, or in template declarations or definitions shall always begin with an uppercase letter.
 
   Example:
   
   ```
     using Scalar = float;
-    template <typename BorderPolicy> class Interpolator;
+    template <typename Border_policy> class Interpolator;
 ```
 
-7. Use expressive, descriptive and meaningful names for variables and function arguments. Avoid names like `p`, `a`, `b`, `c` etc. and arbitrary abbreviations like `cntr`.
+6. Use expressive, descriptive and meaningful names for variables and function arguments. Avoid names like `p`, `a`, `b`, `c` etc. and arbitrary abbreviations like `cntr`.
 
   One-letter variable names may be used in for-loops if they’re used as simple counters, but the use of a more meaningful name is explicitly encouraged.
   
@@ -437,12 +443,12 @@ Also, this is one more reason to cleanly separate function declaration from defi
   ```
     double factor;    // much
     std::size_t size; // better
-    int featureIndex; // :-)
+    int feature_index; // :-)
 ```
 
   - <small>Good code should be self-documenting, not deliberately obfuscated. While there is a place for brevity (e.g. counter variables of some (but not all) for-loops), one should always err on the side of longer and more meaningful names. Remember, people besides yourself will have to read and/or work on your code, and be able to understand things quickly.</small>
 
-8. For class template or function template declarations and definitions, use the `typename` keyword instead of the `class` keyword, since the former more accurately specifies what it is -- a type name. In the example below, `T` does not need to refer to an actual class, so using `class` is just less logical.
+7. For class template or function template declarations and definitions, use the `typename` keyword instead of the `class` keyword, since the former more accurately specifies what it is -- a type name. In the example below, `T` does not need to refer to an actual class, so using `class` is just less logical.
 
   Example:
   
@@ -456,7 +462,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
     template <class T> ...
 ```
 
-9. Avoid type or usage-specific prefixes for variable, class or struct names. In particular, any type of Hungarian notation is disallowed.
+8. Avoid type or usage-specific prefixes for variable, class or struct names. In particular, any type of Hungarian notation is disallowed.
 
   Two possible exceptions:
   - Constants may be prefixed with `k`, followed by an uppercase letter (following camel case convention).
@@ -469,15 +475,16 @@ Also, this is one more reason to cleanly separate function declaration from defi
   class clWidget; // disallowed
   class IWidget; // disallowed
   bool bSuccess; // disallowed
+  bool b_success; // disallowed
   
   namespace
   {
-      constexpr std::size_t kBitsPerElement = 16; // OK
-      std::atomic<int> gInstanceCount; // OK
+      constexpr std::size_t k_bits_per_element = 16; // OK
+      std::atomic<int> g_instance_count; // OK
   }
 ```
 
-10. For the naming of member variables, refer to the Classes section below.
+9. For the naming of member variables, refer to the Classes section below.
 
 ## <a name="section_control_structures"></a>5. Control structures
 
@@ -487,34 +494,34 @@ Also, this is one more reason to cleanly separate function declaration from defi
   
   ```  
     {
-        if (someFlag)
+        if (some_flag)
         {
-            doSomething();
+            do_something();
         }
 
-        someCode();
+        some_code();
 
         if (var == 5)
         {
-            doSomething();
+            do_something();
         }
         else if (var == 10)
         {
-            doSomethingElse();
+            do_something_else();
         }
         else
         {
-            doSomethingElse();
+            do_something_else();
         }
 
-        someCode();
+        some_code();
 
         for (const auto& widget : widgets)
         {
             // ...
         }
 
-        someCode();
+        some_code();
     }
 ```
 
@@ -526,7 +533,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
     {
         // ...
     }
-    functionCall();
+    function_call();
 ```
 
   - <small>This greatly enhances code readability by visually separating the `if/else` blocks, `for-loop` blocks, etc. from surrounding code.</small>
@@ -534,17 +541,17 @@ Also, this is one more reason to cleanly separate function declaration from defi
 2. Single-line if statements are only ever allowed with surrounding braces.
 
   ```
-    if (someFlag)
+    if (some_flag)
     {
-        doSomething();
+        do_something();
     }
 ```
 
   This kind of code is not allowed at all:
 
   ```
-    if (someFlag)
-        doSomething();
+    if (some_flag)
+        do_something();
 ```
 
   - <small> The former style provides greatly increased readability. Brace-related programming errors (or errors creeping in through code merges) are avoided. It’s too easy to “just add another line” without adding braces, and then days later follow up by debugging some weird error (that was caused by this error in judgement) for hours. Also, remember <a href="http://www.dwheeler.com/essays/apple-goto-fail.html">`goto fail; goto fail;`</a>?</small>
@@ -554,7 +561,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
   Example:
 
   ```
-    if (f = someFunc())    // not allowed
+    if (f = some_func())    // not allowed
     {
         // ...
     }
@@ -563,7 +570,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
   Instead, write:
   
   ```
-    f = someFunc();
+    f = some_func();
    
     if (f)
     {
@@ -584,7 +591,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
   Example:
 
   ```
-    switch (someValue)
+    switch (some_value)
     {
         case 0: return 123; // this is a single-line case
     
@@ -596,7 +603,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
         }
 
         case 2:
-            doSomething(); // this style is not allowed; use braces
+            do_something(); // this style is not allowed; use braces
             break;
 
         case 3: int a = b + 1; return a; // also not allowed
@@ -631,11 +638,11 @@ Also, this is one more reason to cleanly separate function declaration from defi
         double x_;    // private member variables come before
         double y_;    // any private member functions
 
-        double internalComputation();
+        double internal_computation();
     };
 
     Point::Point(double x, double y)
-    : x_(x), y_(y)             // initializer list on separate line
+        : x_(x), y_(y)           // initializer list on separate line
     {
     }
 
@@ -673,7 +680,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
   (Do not do this; instead write an interface that cannot be used incorrectly.)
   
   ```
-    struct GrayscaleImage
+    struct Grayscale_image
     {
         unsigned char* data; // anyone can let this point to
         std::size_t size;    // another memory location or change
@@ -712,30 +719,31 @@ See also Scott Meyers, “Effective C++”, 3rd Edition, Item 22.</small>
 8. In constructor definitions, aim to initialize all variables via the initializer list. Explicit assignment inside the constructor is only allowed in cases where initialization via the initializer list is impossible.
 
   Example:
+  
   ```
-  Foo::Foo(int var0, double var1, Widget var2)
-  : var0_(var0), var1_(var1), var2_(var2)
-  {
-      // var2_ = var2;  *avoid*
-  }
+    Foo::Foo(int var0, double var1, Widget var2)
+        : var0_(var0), var1_(var1), var2_(var2)
+    {
+        // var2_ = var2;  *avoid*
+    }
 ```
 
   - <small>Explicit assignment inside the constructor leads to default construction of the member followed by re-assignment, which is often more inefficient than direct construction.</small>
 
 9. Class member variables have to be initialized in constructor initializer lists in exactly the same order as they are declared in the class. This avoids potentially wrong initializations (and compiler warnings about it).
 
-10. The initializer list can be formatted to either be on one single line, or contain each variable on a separate line. The latter case is preferable when many variables are to be initialized. Keep the comma at the end of the line and indent with two spaces at the beginning of each extra line.
+10. The initializer list can be formatted to either be on one single line, or contain each variable on a separate line. The latter case is preferable when many variables are to be initialized. Keep the comma at the end of the line and indent with two additional spaces at the beginning of each extra line.
 
   Example:
   
   ```
     Point::Point(float px, float py, float pz)
-    : x(px), y(py), z(pz)
+        : x(px), y(py), z(pz)
 
     Point::Point(float px, float py, float pz)
-    : x(px),
-      y(py),
-      z(pz)
+        : x(px),
+          y(py),
+          z(pz)
 ```
 
 11. Always make sure that *all* member variables of a class are properly initialized in every constructor.
@@ -828,9 +836,9 @@ Exceptions can be made for trivial getter/setter functions, or for very small cl
   Example:
   
   ```
-std::vector<int> getIndices(int seed);
-std::tuple<int, float, double> computeNumbers();
-CustomStructure getALotOfStuff();
+std::vector<int> get_indices(int seed);
+std::tuple<int, float, double> compute_numbers();
+Custom_structure get_a_lot_of_stuff();
 ```
 
   - <small>Output arguments should in almost all cases be returned by value, since this is where they belong. Given both move semantics as well as return value optimization (RVO) that all compilers implement, there are no inefficiencies associated with returning by value.</small>
@@ -839,21 +847,23 @@ CustomStructure getALotOfStuff();
   Only ever pass by const pointer (`const T* const`) when the input argument is truly optional; in this case, it should default to `nullptr`.
 
   Example:
+  
   ```
-Status writeImage(const std::string& filename, const Image& im, int compressionLevel);
+    Status write_image(const std::string& filename, const Image& im, int compression_level);
 ```
 
   ```
-  void processData(const Data& data, const OptionalData* const optionalData = nullptr);
+    void process_data(const Data& data, const Optional_data* const optional_data = nullptr);
 ```
 
 3. If you really must use output parameters (for efficiency purposes in certain cases, e.g. to avoid memory allocations), pass them by non-const reference (`T&`).
   Only ever pass by non-const pointer (`T*`) when the output argument is optional; in this case, it should default to nullptr.
   
   Example:
+  
   ```
-void copy(const Image& src, const Rect& region, Image& dst);
-void process(const Image& src, DebugInfo* debugInfo = nullptr);
+    void copy(const Image& src, const Rect& region, Image& dst);
+    void process(const Image& src, Debug_info* debug_info = nullptr);
 ```
 
 4. It is strongly advisable and good practice in many of the "by-reference output parameter" cases to provide another convenience overload that returns said output parameter by value, unless the return value is used otherwise.
@@ -861,16 +871,16 @@ void process(const Image& src, DebugInfo* debugInfo = nullptr);
   Example:
   
   ```
-    void detectEdges(const Image& img, Image& edgeImg)
+    void detect_edges(const Image& img, Image& edge_img)
     {
         // ...
     }
         
-    Image detectEdges(const Image& img)
+    Image detect_edges(const Image& img)
     {
-        Image edgeImg;
-        detectEdges(img, edgeImg);
-        return edgeImg;
+        Image edge_img;
+        detect_edges(img, edge_img);
+        return edge_img;
     }
 ```
 
@@ -906,18 +916,18 @@ In particular, define for-loop variables inside the for-loop if they are not use
   These examples illustrate the consistency argument:
   
   ```
-    auto intValue = 42;
-    auto fpValue = 42.0f;
+    auto int_value = 42;
+    auto fp_value = 42.0f;
     auto e = Employee(id);
-    auto widget = getWidget();
+    auto widget = get_widget();
     auto w = std::make_unique<Widget>(1, 2, 3);
 ```
 
   We still consider the old-style syntax more readable for the definition of fundamental and some custom types, so this should be preferred:
   
   ```
-  int valueI = 42;
-  float valueF = 42.0f;
+  int value_i = 42;
+  float value_f = 42.0f;
   Employee e(id);
 ```
 
@@ -932,8 +942,8 @@ In particular, define for-loop variables inside the for-loop if they are not use
   Also, prefer using `auto` in for-loops (range based or otherwise), to not have to specify elaborate type names:
   
   ```
-  for (auto itr = vec.begin(), itrEnd = vec.begin() + n; itr != itrEnd; ++itr) ...
-  for (const auto& p : myMap)
+  for (auto itr = vec.begin(), itr_end = vec.begin() + n; itr != itr_end; ++itr) ...
+  for (const auto& p : my_map)
   ...
 ```
 
@@ -1010,8 +1020,8 @@ In particular, define for-loop variables inside the for-loop if they are not use
   ```
     enum class Tide
     {
-        Low,
-        High
+        low,
+        high
     };
 ```
 
@@ -1041,9 +1051,9 @@ Convert existing code using `enum` to make use of `enum class` instead.
   ```
     enum class Difficulty : unsigned char
     {
-        Easy,
-        Medium,
-        Hard
+        easy,
+        medium,
+        hard
     }
 ```
 
@@ -1072,12 +1082,12 @@ Convert existing code using `enum` to make use of `enum class` instead.
   Example: Do not write
 
   ```
-    void addWidget(const Widget& w)
+    void add_widget(const Widget& w)
     {
         // add widgets to queue; queue is limited to 10 elements
         if (queue_.size() >= 10)
         {
-            throw QueueAdditionException("queue full");
+            throw Queue_addition_exception("queue full");
         }
         
         queue_.push_back(w);
@@ -1087,15 +1097,15 @@ Convert existing code using `enum` to make use of `enum class` instead.
   but rather write
   
   ```
-    WidgetAdditionStatus addWidget(const Widget& w)
+    Widget_addition_status add_widget(const Widget& w)
     {
         if (queue_.size() >= 10)
         {
-            return WidgetAdditionStatus::QueueFull;
+            return Widget_addition_status::Queue_full;
         }
         
         queue_.push_back(w);
-        return WidgetAdditionStatus::Success;
+        return Widget_addition_status::Success;
     }
 ```    
 
@@ -1104,16 +1114,16 @@ Convert existing code using `enum` to make use of `enum class` instead.
   Example: Do not write the following type of code, where the `throw` statement is blatantly misused as a possible return path.
   
   ```
-    std::size_t findElement(const std::vector<int>& sortedData, int element)
+    std::size_t find_element(const std::vector<int>& sorted_data, int element)
     {
-        auto itr = std::lower_bound(sortedData.cbegin(), sortedData.cend(), element);
+        auto itr = std::lower_bound(sorted_data.cbegin(), sorted_data.cend(), element);
         
-        if (itr == sortedData.cend() || *itr != element)
+        if (itr == sorted_data.cend() || *itr != element)
         {
             throw std::runtime_error("element not found");
         }
         
-        return std::distance(sortedData.cbegin(), itr);
+        return std::distance(sorted_data.cbegin(), itr);
     }
 ```
 
@@ -1125,14 +1135,14 @@ Convert existing code using `enum` to make use of `enum class` instead.
   Example: Write
   
   ```
-    int index = computeValidIndex(data);
+    int index = compute_valid_index(data);
     assert(index >= 0 && index <= data.size()); // Post-condition check
 ```
 
   instead of
   
   ```
-    int index = computeValidIndex(data);
+    int index = compute_valid_index(data);
   
     if (index < 0 || index > data.size())
     {
@@ -1160,7 +1170,7 @@ Convert existing code using `enum` to make use of `enum class` instead.
   Example: Do not write
   
   ```
-  void doThingsWithWidgets(int i)
+  void do_things_with_widgets(int i)
   {
       Widget* widgets = new Widget[10];
       int i = func(widgets); // if this throws -> MEMORY LEAK
@@ -1177,7 +1187,7 @@ Convert existing code using `enum` to make use of `enum class` instead.
   The following code uses RAII to guard against resource leaks:
 
   ```
-  void doThingsWithWidgets(int i)
+  void do_things_with_widgets(int i)
   {
       auto widgets = std::make_unique<Widget[10]>();
       int i = func(widgets); // may safely throw
@@ -1192,7 +1202,7 @@ Convert existing code using `enum` to make use of `enum class` instead.
   However, avoid pointer semantics unless necessary. Use a local resource instead:
 
   ```
-  void doThingsWithWidgets(int i)
+  void do_things_with_widgets(int i)
   {
       std::vector<Widget> widgets(10);
       int i = func(widgets);
@@ -1347,7 +1357,7 @@ If a function argument is not optional, it should be passed by either const or n
   ```
     std::shared_ptr<Type> var(new Type(args)); // strongly discouraged
     
-    Type* rptr = pointerFactory(args);
+    Type* rptr = pointer_factory(args);
     std::shared_ptr<Type> var(rptr); // even more strongly discouraged
 ```
 
@@ -1506,7 +1516,7 @@ Even if you think that introducing global state might be a good idea, think twic
   ```
     #pragma once        // This is very useful, indeed. But non-standard, so YMMV.
     
-    // Your Code
+    // Your code
 ```
 
   Do not mix include guards with `#pragma once` in the same library, i.e. all files of one library should make use of the same method.
@@ -1543,8 +1553,8 @@ Even if you think that introducing global state might be a good idea, think twic
     #include <foo/Assert.hpp>
     #include <foo/Log.hpp>
 
-    #include <bar/img/Convolution.hpp>
-    #include <bar/img/Image.hpp>
+    #include <bar/Widget.hpp>
+    #include <bar/Gadget.hpp>
 ```
 
 9. Avoid using the `<xxx.h>` C compatibility headers; use the `<cxxx>` alternatives instead.
