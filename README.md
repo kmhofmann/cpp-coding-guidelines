@@ -52,7 +52,7 @@ It provides both formatting conventions as well as guidelines for how to write g
 
 2. All features of the C++14 standard that are supported by the respective latest versions of the compilers used can and should be used whenever appropriate and useful.
 
-  In case any code needs to be compiled by a not fully standards-conforming compiler (e.g. Visual C++ 2013 or 2015), refrain from using the unsupported features in the respective sections of the codebase.
+     In case any code needs to be compiled by a not fully standards-conforming compiler (e.g. Visual C++ 2013 or 2015), refrain from using the unsupported features in the respective sections of the codebase.
   Modernize the codebase as soon as a new compiler version is released.
 
 3. Refactor code whenever deemed necessary. Do not let technical debt accumulate, since this will lead to unmaintainable code very quickly.
@@ -61,68 +61,68 @@ Beautify and simplify code whenever and wherever possible, since this will incre
 4. Think in abstractions and focus on genericity and reusability. If an algorithm or a data structure can be expressed generically without loss of performance, do not prematurely commit to only encoding a specific case. Alternatively, start with the specific case and genericize in the following step.
 Avoid explicit duplication of algorithms or data structures; compilers are much better at doing this job (e.g. via template instantiation).
 
-  - <small>In particular, consider putting any piece of code that is potentially reusable into an appropriate library. When doing so, ensure that your code fulfills the comparatively higher standards of library code, for example w.r.t genericity.</small>
+    - <small>In particular, consider putting any piece of code that is potentially reusable into an appropriate library. When doing so, ensure that your code fulfills the comparatively higher standards of library code, for example w.r.t genericity.</small>
 
 5. Write correct and readable code first, micro-optimize later where necessary. Prefer elegant code over supposedly “hand-optimized” code that becomes obfuscated in the process. Optimize hot-spots in your code after judicious profiling.
 On the other hand, do avoid premature pessimization. All other things, in particular readability, being equal, favor optimal code over pessimized alternatives.
 
-  - <small>“Premature optimization is the root of all evil.” (Donald Knuth)</small>
+    - <small>“Premature optimization is the root of all evil.” (Donald Knuth)</small>
 
-  - <small>In many cases, programmers will severely underestimate the capabilities of the compiler optimizer, and therefore commit to inelegant, semi-obfuscated code a priori. This style of programming might have been acceptable in the ‘80s, but is not anymore today, including when targeting low-powered devices. Sometimes rigorous optimization is necessary after all, but in these cases profiling will prove the need. Know what your compiler optimizer can and cannot do.</small>
+    - <small>In many cases, programmers will severely underestimate the capabilities of the compiler optimizer, and therefore commit to inelegant, semi-obfuscated code a priori. This style of programming might have been acceptable in the ‘80s, but is not anymore today, including when targeting low-powered devices. Sometimes rigorous optimization is necessary after all, but in these cases profiling will prove the need. Know what your compiler optimizer can and cannot do.</small>
 
 ## <a name="section_code_formatting"></a>2. Code formatting
 
 1. The general rule is: one statement, one line.
   
-  However, break lines when they become too long. The notion of “too long” is somewhat flexible, depending on the line content. Usually, an `if` statement with several “or-ed” options, or function call arguments can be broken into several lines for enhanced readability. Similarly, function calls with lots of parameters can be broken over multiple lines to increase readability.
+    However, break lines when they become too long. The notion of “too long” is somewhat flexible, depending on the line content. Usually, an `if` statement with several “or-ed” options, or function call arguments can be broken into several lines for enhanced readability. Similarly, function calls with lots of parameters can be broken over multiple lines to increase readability.
   
-  We are explicitly not imposing a strict limit on the numbers of characters per line.
+    We are explicitly not imposing a strict limit on the numbers of characters per line.
 
-  - <small>Usually, about 120-140 characters on one line are fine, sometimes more, although the average line length should be considerably shorter.</small>
+    - <small>Usually, about 120-140 characters on one line are fine, sometimes more, although the average line length should be considerably shorter.</small>
 
-  - <small>Format for logical consistency first; hence the “one statement, one line” principle. Readability is not compromised by occasionally going over the above mentioned soft line limit. We are beyond the age of 80x24 terminal screens, so allowing a line limit beyond 80 characters is the right thing to do. A line limit of only 80 characters would likely impair readability, since all non-trivial statements would have to be broken across several lines. It also encourages a visually cramped coding style, which we very much discourage.</small>
+    - <small>Format for logical consistency first; hence the “one statement, one line” principle. Readability is not compromised by occasionally going over the above mentioned soft line limit. We are beyond the age of 80x24 terminal screens, so allowing a line limit beyond 80 characters is the right thing to do. A line limit of only 80 characters would likely impair readability, since all non-trivial statements would have to be broken across several lines. It also encourages a visually cramped coding style, which we very much discourage.</small>
 
 2. This style guide does not intend to impose a definitive answer to the tabs vs. spaces question. Projects can follow either formatting convention, as long as all related projects are consistently written using the same style. The following two items provide suggestions for a sensible formatting style.
 
 3. Either use all spaces, without use of tabs. Alternatively, consider using tab characters for *logical* indentation, and spaces for additional *visual* indentation. In this case, tabs are to be used up to the current logical indentation level, followed by spaces for any further indentation (e.g. to line up statements).
   
-  Example:
+    Example:
 
-  ```
+    ```
     {
     ····if ((x > 0 && x < width) ||     // pretend this is too long
     ········(y > 0 && y < height))
     }
-```
-
-  or
-
-  ```
+    ```
+  
+    or
+    
+    ```
     {
     →   if ((x > 0 && x < width) ||     // pretend this is too long
     →   ····(y > 0 && y < height))
     }
-```
-  - <small>Using tabs, navigation through code is more efficient in most editors (e.g. pressing backspace or ‘cursor left’ once instead of multiple times). When using spaces, reformatting often takes more key strokes, even in editors supporting "tabbed" spaces well.</small>
+    ```
+    - <small>Using tabs, navigation through code is more efficient in most editors (e.g. pressing backspace or ‘cursor left’ once instead of multiple times). When using spaces, reformatting often takes more key strokes, even in editors supporting "tabbed" spaces well.</small>
   
-  - <small>When following the above suggestion consistently, there is no problem with different tab spacing sizes for display purposes.</small>
+    - <small>When following the above suggestion consistently, there is no problem with different tab spacing sizes for display purposes.</small>
 
 4. The ideal tab spacing is 4 characters. Feel free to use an editor that displays a different tab width. Make sure to configure the editor in such a way that it does not replace tabs with spaces, if you have chosen to use tabs in your projects.
 
-  - <small>4 space characters (per tab) provide a very good compromise. Using 2 characters may look visually cramped and lead to reduced readability (“which indentation level is this now?”), while using more than 4 characters unnecessarily inflates line lengths. 3 is just odd -- pun intended.</small>
+    - <small>4 space characters (per tab) provide a very good compromise. Using 2 characters may look visually cramped and lead to reduced readability (“which indentation level is this now?”), while using more than 4 characters unnecessarily inflates line lengths. 3 is just odd -- pun intended.</small>
 
 5. Opening braces (for classes, functions, control blocks, etc.) should always reside on a new empty line.
 
-  ```
+    ```
     for (int i = 0; i < 4; ++i)
     {
         // ...
     }
-```
+    ```
 
-  Egyptian-style braces (where the opening brace is kept on the line end) are discouraged.
+    Egyptian-style braces (where the opening brace is kept on the line end) are discouraged.
 
-  ```
+    ```
     for (int i = 0; i < 4; ++i) {    // discouraged
         // ...
     }
@@ -130,101 +130,101 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     for (int i = 0; i < 4; ++i){     // even more discouraged
         // ...
     }
-```
+    ```
 
-  - <small>This results in greatly enhanced code readability. It’s not just much easier to visually match braces when they are horizontally lined up, it is also more logical and consistent to keep both braces on the same indentation level. Control structure statements such as loops and if-statements are more cleanly separated from their body. We can also easily comment out the control statement if required, which would not be possible using Egyptian-style braces.</small>
+    - <small>This results in greatly enhanced code readability. It’s not just much easier to visually match braces when they are horizontally lined up, it is also more logical and consistent to keep both braces on the same indentation level. Control structure statements such as loops and if-statements are more cleanly separated from their body. We can also easily comment out the control statement if required, which would not be possible using Egyptian-style braces.</small>
 
-  - <small>Some people like to refer to Kernighan and Ritchie or Stroustrup on their use of Egyptian-style braces in their respective C and C++ books, but obviously very different rules apply for code printed inside a book or in presentation slides, where it makes much more sense to save a bit of vertical space.
+    - <small>Some people like to refer to Kernighan and Ritchie or Stroustrup on their use of Egyptian-style braces in their respective C and C++ books, but obviously very different rules apply for code printed inside a book or in presentation slides, where it makes much more sense to save a bit of vertical space.
 
       Given the amount of lines that fit on modern monitors today, we do not need to save every bit of vertical whitespace at the great expense of code readability (and brace “matchability”).</small>
 
 6. Whitespaces are to be inserted after keywords, but not after opening or before closing braces.
 
-  All binary operators should have exactly one space on each side, except for `.`, `->`, `.*`, and `->*` which should have zero.
+    All binary operators should have exactly one space on each side, except for `.`, `->`, `.*`, and `->*` which should have zero.
 
-  Example:
+    Example:
 
-  ```
+    ```
     if (i == 5)    // not: if ( i == 5 ), or if (i==5) or if ( i==5), etc.
-```
+    ```
 
-  ```
+    ```
     for (const auto& widget : widgets)
-```
+    ```
 
-  ```
+    ```
     a = b + c;     // not: a=b+c; which impairs readability
     d = 2*a + 10;  // discouraged, but may be fine to emphasize precedence in complex formulas
-```
+    ```
 
-  Sometimes, grouping mathematical operators and parentheses differently w.r.t whitespace might enhance readability. It is then okay to break this rule for innermost expressions.
+    Sometimes, grouping mathematical operators and parentheses differently w.r.t whitespace might enhance readability. It is then okay to break this rule for innermost expressions.
   
-  Example:
+    Example:
   
-  ```
+    ```
     a = ((b+c) + (d+e)) * f;
     ```
 
 7. Cleanly separate the type from the variable name: Pointer (`*`) and reference (`&`) type designators are to be placed next to the type name without any whitespace. Variable names should be then placed after a whitespace.
 
-  Avoid placing pointer and reference type symbols adjacent to a variable or function name.
+    Avoid placing pointer and reference type symbols adjacent to a variable or function name.
 
-  Example:
+    Example:
   
-  ```
+    ```
     int* p;
     int& q = *p;
-```
+    ```
 
-  Avoid all of the following:
+    Avoid all of the following:
   
-  ```
+    ```
     int *p;
     int * p;
     int &q = *p;
     int & q = *p;
-```
+    ```
 
-  - <small>Being a pointer is inherently part of the type of a variable, and not of the name. In the above example, the type is `int*` and the name is `p`. The type of a variable ("int”, or “int pointer”) belongs together, and has to be clearly separated from the name of the variable.</small>
+    - <small>Being a pointer is inherently part of the type of a variable, and not of the name. In the above example, the type is `int*` and the name is `p`. The type of a variable ("int”, or “int pointer”) belongs together, and has to be clearly separated from the name of the variable.</small>
 
 8. Only ever declare one variable per line. Avoid placing multiple variable declarations on the same line.
 
-  Example:
+    Example:
   
-  ```  
+    ```  
     int x = 0;
     int y = 0;
-```
+    ```
 
-  Not:
+    Not:
 
-  ```
+    ```
     int x = 0, y = 0;
-```
+    ```
 
-  - <small>This greatly enhances code readability.</small>
+    - <small>This greatly enhances code readability.</small>
 
-  - <small>It also fixes the unfortunate language defect inherited from C, where `int* p, q;` declares one pointer and one non-pointer variable. Obviously, writing `int* p, *q;` or `int *p, *q;` should be avoided, as it would break the rule above.</small>
+    - <small>It also fixes the unfortunate language defect inherited from C, where `int* p, q;` declares one pointer and one non-pointer variable. Obviously, writing `int* p, *q;` or `int *p, *q;` should be avoided, as it would break the rule above.</small>
 
 9. Prefer not to arbitrarily align variable declaration/initialization groups.
 
-  Example:
+    Example:
   
-  ```
+    ```
     int number = 5;
     std::string text = “Hello”;
-```
+    ```
 
-  Not:
+    Not:
 
-  ```
+    ```
     int         number = 5;
     std::string text   = “Hello”;
-```
+    ```
 
-  - <small>These kinds of alignments are just arbitrary. Instead, our formatting rule (e.g. “1 whitespace before and after the equals sign”) provides consistency.</small>
+    - <small>These kinds of alignments are just arbitrary. Instead, our formatting rule (e.g. “1 whitespace before and after the equals sign”) provides consistency.</small>
 
-  - <small>In some cases, however, alignment can make sense, e.g. when defining the entries of a matrix.</small>
+    - <small>In some cases, however, alignment can make sense, e.g. when defining the entries of a matrix.</small>
 
 10. Consider separating
 
@@ -233,11 +233,11 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     - their return type, and
     - the function name/arguments
 
-  in function declarations and definitions by breaking them into separate lines, whenever the full declaration or definition becomes too long for quick visual inspection of its elements.
+    in function declarations and definitions by breaking them into separate lines, whenever the full declaration or definition becomes too long for quick visual inspection of its elements.
 
-  Example: Consider writing
+    Example: Consider writing
 
-  ```
+    ```
     template <typename T>
     inline
     T
@@ -245,53 +245,53 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     {
         // ...
     }
-```
+    ```
 
-  instead of
+    instead of
 
-  ```
+    ```
     template <typename T> inline T max(T a, T b)
     {
         // ...
     }
-```
+    ```
 
-  - <small>This makes it very easy to see the return type as well as the name of the function or member function. This might seem trivial in the above example (and should probably not be done in this case), but as template specifiers as well as return types can get unwieldy, it’s a good idea to visually separate them. Consider a declaration like:</small>
+    - <small>This makes it very easy to see the return type as well as the name of the function or member function. This might seem trivial in the above example (and should probably not be done in this case), but as template specifiers as well as return types can get unwieldy, it’s a good idea to visually separate them. Consider a declaration like:</small>
 
-     ```
-    template <typename BidirIt, typename IndexType>
-    inline
-    std::iterator_traits<BidirIt>::value_type
-    Foo<ScalarType>::bar(BidirIt begin, BidirIt end, IndexType index);
-```
+       ```
+      template <typename BidirIt, typename IndexType>
+      inline
+      std::iterator_traits<BidirIt>::value_type
+      Foo<ScalarType>::bar(BidirIt begin, BidirIt end, IndexType index);
+      ```
 
       <small>and it becomes clear why a visual separation is important.</small>
 
 11. Format function declarations and definitions consistently. There are a few possible styles for doing so.
 The first one applies when the function name including arguments is short enough to fit on one line. In this case, keep all arguments on one line, as follows:
 
-  ```
+    ```
     void bar(double a0, double a1, double a2);
-```
+    ```
 
-  If the function arguments do not fit on one line, either list each function argument on its own line, indented by two tabs (or the equivalent number of spaces). In this case, do not specify the first argument on the same line as the function name:
+    If the function arguments do not fit on one line, either list each function argument on its own line, indented by two tabs (or the equivalent number of spaces). In this case, do not specify the first argument on the same line as the function name:
   
-  ```
+    ```
     void Foo<ElementType>::transmogrify_widgets_and_gadgets(  // no arguments on this line
             const std::vector<Widget>& widgets,
             const std::vector<Gadgets>& gadgets,
             double transmogrification_factor = 1.0);
-```
+    ```
 
-  Alternatively, line up all function arguments with whitespaces after the function name:
+    Alternatively, line up all function arguments with whitespaces after the function name:
   
-  ```
+    ```
     void Foo<Many, Tmplt, Pars>::function_name(const std::vector<Widget>& widgets,
                                                const std::vector<Gadgets>& gadgets,
                                                double transmogrification_factor = 1.0);
-```
+    ```
 
-  The third style quickly becomes problematic in combination with long functions names, in particular when the class qualifier includes a number of template parameters. Readability might be decreased due to the excessive line length/indent. It is also much more tedious to reformat whenever the function name changes. Hence, the first two styles are preferred.
+    The third style quickly becomes problematic in combination with long functions names, in particular when the class qualifier includes a number of template parameters. Readability might be decreased due to the excessive line length/indent. It is also much more tedious to reformat whenever the function name changes. Hence, the first two styles are preferred.
 
 12. Make sure the formatting style of your function declaration always matches that of the definition.
 
@@ -299,192 +299,191 @@ The first one applies when the function name including arguments is short enough
 
 1. Aim to comment your code properly.
 
-  Write both higher-level comments, as well as more detailed lower-level comments wherever appropriate. Any technically skilled colleague should be able to understand what is going on from both code as well as comments. Start-up costs related to code understanding should be kept to a minimum by commenting judiciously.
+    Write both higher-level comments, as well as more detailed lower-level comments wherever appropriate. Any technically skilled colleague should be able to understand what is going on from both code as well as comments. Start-up costs related to code understanding should be kept to a minimum by commenting judiciously.
 
 2. On the other hand, do not bury your code in comments. Omit any obvious comments (`++i; // increments i`). Well-written code should be largely self-documenting through choice of good variable and function names, logical program flows, etc.
 
 3. All comments should be written in C++-style (`//`), with a variant of the C-style (`/*`) being mainly reserved for Doxygen-style documentation (`/**`).
 
-  Always follow with a whitespace after starting a comment.
+    Always follow with a whitespace after starting a comment.
   
-  Example:
+    Example:
 
-  ```
+    ```
     // This is a proper comment.
     //Do not omit the whitespace.
-```
-  ```
+    ```
+    ```
     /* Don’t write cumbersome C-style comments either. */
-```
-  ```
+    ```
+    ```
     /**
      * @brief It’s ok and even encouraged for Doxygen-style documentation.
      */
-```
-
-   ```
+    ```
+     ```
     /// This is also Doxygen-style documentation.
-```
+    ```
 
-  - <small>C-style comments can not be nested; C++-style comments can be (per line), and many IDEs support automatic commenting or uncommenting of code blocks. </small>
+    - <small>C-style comments can not be nested; C++-style comments can be (per line), and many IDEs support automatic commenting or uncommenting of code blocks. </small>
 
 4. When providing Doxygen-style documentation, place it directly above the definition of a function/member function, not the initial declaration either inside or outside of a class.
 
-  - <small>Doxygen-style documentation is meant to be read in a browser, not inside the code. Any reader of your class should be able to get a quick overview by looking at the public interface in-code, and the more of the class fits onto a screen, the easier it is to read. Do not blow up the size of your class definitions by providing in-line documentation.
+    - <small>Doxygen-style documentation is meant to be read in a browser, not inside the code. Any reader of your class should be able to get a quick overview by looking at the public interface in-code, and the more of the class fits onto a screen, the easier it is to read. Do not blow up the size of your class definitions by providing in-line documentation.
 Also, this is one more reason to cleanly separate function declaration from definition (see also below, in ‘Classes’ section).</small>
 
 ## <a name="section_naming"></a>4. Naming
 
 1. There are generally two acceptable and internally consistent naming conventions.
 
-  a) The "camel case" convention:
+    a) The "camel case" convention:
   
-  ```
-  class AwesomeWidget;              // classes: upper-case & camel case
-  double distanceFromPoint = 5.0;   // variables: lower-case & camel case
-  double computeDistance();         // functions: lower-case & camel case
-  double AwesomeWidget::getFoo();   // member functions: lower-case & camel case
-  enum class State { CorruptData }; // enums: upper-case & camel case 
-```
-  Only class names start with an upper-case letter, whereas variable and function names start with a lower-case letter. All following syllables are directly connected to the preceding syllable and begin with an upper-case letter.
+    ```
+    class AwesomeWidget;              // classes: upper-case & camel case
+    double distanceFromPoint = 5.0;   // variables: lower-case & camel case
+    double computeDistance();         // functions: lower-case & camel case
+    double AwesomeWidget::getFoo();   // member functions: lower-case & camel case
+    enum class State { CorruptData }; // enums: upper-case & camel case 
+    ```
+    Only class names start with an upper-case letter, whereas variable and function names start with a lower-case letter. All following syllables are directly connected to the preceding syllable and begin with an upper-case letter.
 
-  b) The "underscores" or "snake case" convention:
+    b) The "underscores" or "snake case" convention:
   
-  ```
-  class Awesome_widget;              // classes: begin upper-case & underscore separators
-  class AwesomeWidget;               // some use camel case here (Python-like)
-  double distance_from_point = 5.0;  // variables: lower-case & underscore separators
-  double compute_distance();         // functions: lower-case & underscore separators
-  double Awesome_widget::get_foo();  // member functions: lower-case & underscore separators
-  enum class State { corrupt_data }; // enums: like classes; elements lower-case & underscore separators
-```
-  Only class names start with an upper-case letter, whereas variable and function names start with a lower-case letter. All following syllables are separated by an underscore (`_`) and keep the case of the preceding syllable(s).
+    ```
+    class Awesome_widget;              // classes: begin upper-case & underscore separators
+    class AwesomeWidget;               // some use camel case here (Python-like)
+    double distance_from_point = 5.0;  // variables: lower-case & underscore separators
+    double compute_distance();         // functions: lower-case & underscore separators
+    double Awesome_widget::get_foo();  // member functions: lower-case & underscore separators
+    enum class State { corrupt_data }; // enums: like classes; elements lower-case & underscore separators
+    ```
+    Only class names start with an upper-case letter, whereas variable and function names start with a lower-case letter. All following syllables are separated by an underscore (`_`) and keep the case of the preceding syllable(s).
 
-  - <small>Use one of these naming conventions consistently throughout all related projects. Do not mix styles or deviate from the chosen convention.</small>
+    - <small>Use one of these naming conventions consistently throughout all related projects. Do not mix styles or deviate from the chosen convention.</small>
 
 2. Class names and enumerations shall always begin with an upper-case letter, in order to cleanly distinguish them from (instance) variables. Never declare classes that begin with a lower-case letter.
 
-  Example:
+    Example:
   
-  ```
+    ```
     class Widget;
     Widget widget;
     
     enum class Level : unsigned char;
-```
+    ```
 
-  - <small>Class and enumeration types are not variable names, and a visual separation is clearly desirable. Using uppercase identifiers for the former and lowercase identifiers for the latter is an unambiguous way to distinguish the two, and everyone immediately knows which one is which.</small>
+    - <small>Class and enumeration types are not variable names, and a visual separation is clearly desirable. Using uppercase identifiers for the former and lowercase identifiers for the latter is an unambiguous way to distinguish the two, and everyone immediately knows which one is which.</small>
 
-  - <small>Constructions like</small>
+    - <small>Constructions like</small>
 
-     ```
-    widget my_widget; // funny name
-    widget w; // name not expressive at all
-```
+      ```
+      widget my_widget; // funny name
+      widget w; // name not expressive at all
+      ```
 
-     <small>will just lead to decreased readability at some point, and</small>
+      <small>will just lead to decreased readability at some point, and</small>
      
-     ```
-    widget widget; // the obvious naming in many cases
-```
+      ```
+      widget widget; // the obvious naming in many cases
+      ```
 
-     <small>is not legal code (unless the first letter of the class type becomes uppercase).</small>
+      <small>is not legal code (unless the first letter of the class type becomes uppercase).</small>
 
-  - <small>There shall be no `class` or `struct` name in the codebase that begins with a lower-case letter.</small>
+    - <small>There shall be no `class` or `struct` name in the codebase that begins with a lower-case letter.</small>
 
 3. Variable names shall therefore always begin with a lower-case letter.
 
-  Example:
+    Example:
   
-  ```
+    ```
     int index;
     Widget widget;
-```
-  - <small>There shall be no variable in the codebase that begins with an upper-case letter.</small>
+    ```
+    - <small>There shall be no variable in the codebase that begins with an upper-case letter.</small>
 
 4. Both member and non-member functions shall always begin with a lower-case letter.
 
-  Example:
+    Example:
 
-  ```
+    ```
     double compute_distance();
     const std::string& Window::name();
-```
+    ```
 
-  Not:
+    Not:
   
-  ```
+    ```
     double ComputeDistance();
-```
+    ```
 
-  - <small>Function names are not class names, so prevent any possible confusion.</small>
+    - <small>Function names are not class names, so prevent any possible confusion.</small>
 
-  - <small>There shall be no function or member function in the codebase that begins with an upper-case letter.</small>
+    - <small>There shall be no function or member function in the codebase that begins with an upper-case letter.</small>
 
 5. Any custom type names, e.g. in `typedef` or `using` statements, or in template declarations or definitions shall always begin with an uppercase letter.
 
-  Example:
+    Example:
   
-  ```
+    ```
     using Scalar = float;
     template <typename Border_policy> class Interpolator;
-```
+    ```
 
 6. Use expressive, descriptive and meaningful names for variables and function arguments. Avoid names like `p`, `a`, `b`, `c` etc. and arbitrary abbreviations like `cntr`.
 
-  One-letter variable names may be used in for-loops if they’re used as simple counters, but the use of a more meaningful name is explicitly encouraged.
+    One-letter variable names may be used in for-loops if they’re used as simple counters, but the use of a more meaningful name is explicitly encouraged.
   
-  Example:
+    Example:
   
-  ```
+    ```
     double f;       // this does
     std::size_t sz; // not help
     int i;          // readability
-```
+    ```
 
-  ```
+    ```
     double factor;    // much
     std::size_t size; // better
     int feature_index; // :-)
-```
+    ```
 
-  - <small>Good code should be self-documenting, not deliberately obfuscated. While there is a place for brevity (e.g. counter variables of some (but not all) for-loops), one should always err on the side of longer and more meaningful names. Remember, people besides yourself will have to read and/or work on your code, and be able to understand things quickly.</small>
+    - <small>Good code should be self-documenting, not deliberately obfuscated. While there is a place for brevity (e.g. counter variables of some (but not all) for-loops), one should always err on the side of longer and more meaningful names. Remember, people besides yourself will have to read and/or work on your code, and be able to understand things quickly.</small>
 
 7. For class template or function template declarations and definitions, use the `typename` keyword instead of the `class` keyword, since the former more accurately specifies what it is -- a type name. In the example below, `T` does not need to refer to an actual class, so using `class` is just less logical.
 
-  Example:
+    Example:
   
-  ```
+    ```
     template <typename T> ...
-```
+    ```
 
-  instead of
+    instead of
   
-  ```
+    ```
     template <class T> ...
-```
+    ```
 
 8. Avoid type or usage-specific prefixes for variable, class or struct names. In particular, any type of Hungarian notation is disallowed.
 
-  Two possible exceptions:
-  - Constants may be prefixed with `k`, followed by an uppercase letter (following camel case convention).
-  - Global non-constant variables with static linkage may be prefixed with `g`, followed by an uppercase letter (following camel case convention). However, avoid global state if possible (see below).
+    Two possible exceptions:
+    - Constants may be prefixed with `k`, followed by an uppercase letter (following camel case convention).
+    - Global non-constant variables with static linkage may be prefixed with `g`, followed by an uppercase letter (following camel case convention). However, avoid global state if possible (see below).
 
-  Example:
+    Example:
   
-  ```
-  class Widget; // OK
-  class clWidget; // disallowed
-  class IWidget; // disallowed
-  bool bSuccess; // disallowed
-  bool b_success; // disallowed
+    ```
+    class Widget; // OK
+    class clWidget; // disallowed
+    class IWidget; // disallowed
+    bool bSuccess; // disallowed
+    bool b_success; // disallowed
   
-  namespace
-  {
-      constexpr std::size_t k_bits_per_element = 16; // OK
-      std::atomic<int> g_instance_count; // OK
-  }
-```
+    namespace
+    {
+        constexpr std::size_t k_bits_per_element = 16; // OK
+        std::atomic<int> g_instance_count; // OK
+    }
+    ```
 
 9. For the naming of member variables, refer to the Classes section below.
 
