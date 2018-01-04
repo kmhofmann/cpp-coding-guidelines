@@ -937,7 +937,7 @@ In particular, define for-loop variables inside the for-loop if they are not use
     ```
     auto w = std::make_unique<Widget>(1, 2, 3);
     // instead of:
-    Widget w = std::make_unique<Widget>(1, 2, 3);
+    std::unique_ptr<Widget> w = std::make_unique<Widget>(1, 2, 3);
     ```
 
     Also, prefer using `auto` in for-loops (range based or otherwise), to not have to specify elaborate type names:
