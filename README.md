@@ -1,5 +1,7 @@
 # C++ Coding Conventions and Guidelines
------------------------
+
+**NOTE: NEEDS UPDATING FOR C++17.**
+
 Maintainer: Michael Hofmann (kmhofmann at gmail.com)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
@@ -48,7 +50,9 @@ It provides both formatting conventions as well as guidelines for how to write g
 
 ## <a name="section_big_picture"></a>1. The big picture
 
-1. The language standard to be used is the current ISO standard, C++14. More modern language or library features should always be preferred over older, obsolete or less safe features or paradigms.
+1. The language standard to be used is the current ISO standard, C++14.
+(**NOTE: NEEDS UPDATING FOR C++17.**)
+More modern language or library features should always be preferred over older, obsolete or less safe features or paradigms.
 
 2. All features of the C++14 standard that are supported by the respective latest versions of the compilers used can and should be used whenever appropriate and useful.
 
