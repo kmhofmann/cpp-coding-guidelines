@@ -41,9 +41,12 @@ It provides both formatting conventions as well as guidelines for how to write g
 
   The document originates from a set of in-house C++ coding guidelines while the author was at [Blippar](http://www.blippar.com), but has and will continue to evolve beyond this use case.
 
-- The guide assumes a certain level of familiarity with modern C++ features. While the rationale for a certain rule is often given, the guide is not meant to be an introductory document. Unlike other coding guidelines, the intention of the guidelines is *not* to limit usage of modern C++ features in any way.
+- The guide assumes a certain level of familiarity with modern C++ features.
+While the rationale for a certain rule is often given, the guide is not meant to be an introductory document.
+Unlike other coding guidelines, the intention of the guidelines is *not* to limit usage of modern C++ features in any way.
 
-- Sticking to a particular formatting convention ensures that code is written in a consistent fashion throughout the entire code base. The formatting convention described in this document is optimized for readability and for writing clean code.
+- Sticking to a particular formatting convention ensures that code is written in a consistent fashion throughout the entire code base.
+The formatting convention described in this document is optimized for readability and for writing clean code.
 
   ![](http://imgs.xkcd.com/comics/code_quality.png "Code quality")
 
@@ -59,10 +62,12 @@ More modern language or library features should always be preferred over older, 
      In case any code needs to be compiled by a not fully standards-conforming compiler (e.g. Visual C++ 2013 or 2015), refrain from using the unsupported features in the respective sections of the codebase.
   Modernize the codebase as soon as a new compiler version is released.
 
-3. Refactor code whenever deemed necessary. Do not let technical debt accumulate, since this will lead to unmaintainable code very quickly.
+3. Refactor code whenever deemed necessary.
+Do not let technical debt accumulate, since this will lead to unmaintainable code very quickly.
 Beautify and simplify code whenever and wherever possible, since this will increase readability and maintainability.
 
-4. Think in abstractions and focus on genericity and reusability. If an algorithm or a data structure can be expressed generically without loss of performance, do not prematurely commit to only encoding a specific case. Alternatively, start with the specific case and genericize in the following step.
+4. Think in abstractions and focus on genericity and reusability.
+If an algorithm or a data structure can be expressed generically without loss of performance, do not prematurely commit to only encoding a specific case. Alternatively, start with the specific case and genericize in the following step.
 Avoid explicit duplication of algorithms or data structures; compilers are much better at doing this job (e.g. via template instantiation).
 
     - <small>In particular, consider putting any piece of code that is potentially reusable into an appropriate library. When doing so, ensure that your code fulfills the comparatively higher standards of library code, for example w.r.t genericity.</small>
@@ -76,19 +81,24 @@ On the other hand, do avoid premature pessimization. All other things, in partic
 
 ## <a name="section_code_formatting"></a>2. Code formatting
 
-1. The general rule is: one statement, one line.
+1. Formatting is important, but developers tend to have strong opinions about it.
+Consistency in a code base is probably more important than following every guideline in this section as it was written.
+
+2. The general guideline is: one statement, one line.
   
-    However, break lines when they become too long. The notion of “too long” is somewhat flexible, depending on the line content. Usually, an `if` statement with several “or-ed” options, or function call arguments can be broken into several lines for enhanced readability. Similarly, function calls with lots of parameters can be broken over multiple lines to increase readability.
+    However, break lines when they become too long. The notion of “too long” is somewhat flexible, depending on the line content and personal taste.
+    Usually, an `if` statement with several “or-ed” options, or function call arguments can be broken into several lines for enhanced readability.
+    Similarly, function calls with lots of parameters can be broken over multiple lines to increase readability.
   
-    We are explicitly not imposing a strict limit on the numbers of characters per line.
+    This guide is not imposing a strict limit on the numbers of characters per line, but this can be set and enforced on a per-project level.
 
     - <small>Usually, about 120-140 characters on one line are fine, sometimes more, although the average line length should be considerably shorter.</small>
 
     - <small>Format for logical consistency first; hence the “one statement, one line” principle. Readability is not compromised by occasionally going over the above mentioned soft line limit. We are beyond the age of 80x24 terminal screens, so allowing a line limit beyond 80 characters is the right thing to do. A line limit of only 80 characters would likely impair readability, since all non-trivial statements would have to be broken across several lines. It also encourages a visually cramped coding style, which we very much discourage.</small>
 
-2. This style guide does not intend to impose a definitive answer to the tabs vs. spaces question. Projects can follow either formatting convention, as long as all related projects are consistently written using the same style. The following two items provide suggestions for a sensible formatting style.
+3. This style guide does not intend to impose an answer to the tabs vs. spaces question. Projects can follow either formatting convention, as long as all related projects are consistently written using the same style. The following two items provide suggestions for a sensible formatting style.
 
-3. Either use all spaces, without use of tabs. Alternatively, consider using tab characters for *logical* indentation, and spaces for additional *visual* indentation. In this case, tabs are to be used up to the current logical indentation level, followed by spaces for any further indentation (e.g. to line up statements).
+4. Either use all spaces, without use of tabs. Alternatively, consider using tab characters for *logical* indentation, and spaces for additional *visual* indentation. In this case, tabs are to be used up to the current logical indentation level, followed by spaces for any further indentation (e.g. to line up statements).
   
     Example:
 
@@ -111,11 +121,13 @@ On the other hand, do avoid premature pessimization. All other things, in partic
   
     - <small>When following the above suggestion consistently, there is no problem with different tab spacing sizes for display purposes.</small>
 
-4. The ideal tab spacing is 4 characters. Feel free to use an editor that displays a different tab width. Make sure to configure the editor in such a way that it does not replace tabs with spaces, if you have chosen to use tabs in your projects.
+5. Choose the indentation width as you like, but be consistent throughout your whole code base.
 
-    - <small>4 space characters (per tab) provide a very good compromise. Using 2 characters may look visually cramped and lead to reduced readability (“which indentation level is this now?”), while using more than 4 characters unnecessarily inflates line lengths. 3 is just odd -- pun intended.</small>
+    - <small>Good and common choices include 2 or 4 spaces. The former may look visually cramped to some people.</small>
+    
+    - <small>Using an indentation width of >4 spaces is very uncommon.</small>
 
-5. Opening braces (for classes, functions, control blocks, etc.) should always reside on a new empty line.
+6. Opening braces (for classes, functions, control blocks, etc.) should reside on a new empty line.
 
     ```
     for (int i = 0; i < 4; ++i)
@@ -130,10 +142,6 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     for (int i = 0; i < 4; ++i) {    // discouraged
         // ...
     }
-    
-    for (int i = 0; i < 4; ++i){     // even more discouraged
-        // ...
-    }
     ```
 
     - <small>This results in greatly enhanced code readability. It’s not just much easier to visually match braces when they are horizontally lined up, it is also more logical and consistent to keep both braces on the same indentation level. Control structure statements such as loops and if-statements are more cleanly separated from their body. We can also easily comment out the control statement if required, which would not be possible using Egyptian-style braces.</small>
@@ -142,7 +150,7 @@ On the other hand, do avoid premature pessimization. All other things, in partic
 
       Given the amount of lines that fit on modern monitors today, we do not need to save every bit of vertical whitespace at the great expense of code readability (and brace “matchability”).</small>
 
-6. Whitespaces are to be inserted after keywords, but not after opening or before closing braces.
+7. Whitespaces are to be inserted after keywords, but not after opening or before closing braces.
 
     All binary operators should have exactly one space on each side, except for `.`, `->`, `.*`, and `->*` which should have zero.
 
@@ -169,7 +177,7 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     a = ((b+c) + (d+e)) * f;
     ```
 
-7. Cleanly separate the type from the variable name: Pointer (`*`) and reference (`&`) type designators are to be placed next to the type name without any whitespace. Variable names should be then placed after a whitespace.
+8. Cleanly separate the type from the variable name: Pointer (`*`) and reference (`&`) type designators are to be placed next to the type name without any whitespace. Variable names should be then placed after a whitespace.
 
     Avoid placing pointer and reference type symbols adjacent to a variable or function name.
 
@@ -190,25 +198,6 @@ On the other hand, do avoid premature pessimization. All other things, in partic
     ```
 
     - <small>Being a pointer is inherently part of the type of a variable, and not of the name. In the above example, the type is `int*` and the name is `p`. The type of a variable ("int”, or “int pointer”) belongs together, and has to be clearly separated from the name of the variable.</small>
-
-8. Only ever declare one variable per line. Avoid placing multiple variable declarations on the same line.
-
-    Example:
-  
-    ```  
-    int x = 0;
-    int y = 0;
-    ```
-
-    Not:
-
-    ```
-    int x = 0, y = 0;
-    ```
-
-    - <small>This greatly enhances code readability.</small>
-
-    - <small>It also fixes the unfortunate language defect inherited from C, where `int* p, q;` declares one pointer and one non-pointer variable. Obviously, writing `int* p, *q;` or `int *p, *q;` should be avoided, as it would break the rule above.</small>
 
 9. Prefer not to arbitrarily align variable declaration/initialization groups.
 
@@ -493,57 +482,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
 
 ## <a name="section_control_structures"></a>5. Control structures
 
-1. Each control structure block (`if` statements, `for`/`while`/`do-while` loops, `switch` blocks) should be separated with one empty line from code both above and below it, unless the code is an opening or closing brace from a higher scope. Do not put any code directly above or below a control structure block.
-
-    Example:
-  
-    ```  
-    {
-        if (some_flag)
-        {
-            do_something();
-        }
-
-        some_code();
-
-        if (var == 5)
-        {
-            do_something();
-        }
-        else if (var == 10)
-        {
-            do_something_else();
-        }
-        else
-        {
-            do_something_else();
-        }
-
-        some_code();
-
-        for (const auto& widget : widgets)
-        {
-            // ...
-        }
-
-        some_code();
-    }
-    ```
-
-    This is disallowed:
-
-    ```
-    int index = 0;
-    for (const auto& widget : widgets)
-    {
-        // ...
-    }
-    function_call();
-    ```
-
-    - <small>This greatly enhances code readability by visually separating the `if/else` blocks, `for-loop` blocks, etc. from surrounding code.</small>
-
-2. Single-line if statements are only ever allowed with surrounding braces.
+1. Single-line if statements are only ever allowed with surrounding braces.
 
     ```
     if (some_flag)
@@ -561,7 +500,7 @@ Also, this is one more reason to cleanly separate function declaration from defi
 
     - <small> The former style provides greatly increased readability. Brace-related programming errors (or errors creeping in through code merges) are avoided. It’s too easy to “just add another line” without adding braces, and then days later follow up by debugging some weird error (that was caused by this error in judgement) for hours. Also, remember <a href="http://www.dwheeler.com/essays/apple-goto-fail.html">`goto fail; goto fail;`</a>?</small>
 
-3. Any kind of assignments inside `if` statements are not allowed. Always split the assignment to a variable and a check against the variable over two lines.
+2. Any kind of assignments inside `if` statements are not allowed. Always split the assignment to a variable and a check against the variable over two lines.
 
     Example:
 
@@ -585,11 +524,11 @@ Also, this is one more reason to cleanly separate function declaration from defi
 
     - <small>Don’t try to be too clever. An assignment is not what one would usually expect inside an `if` statement.</small>
 
-4. In `if` statements, Yoda conditions (i.e. writing `(<constant> == <variable>)`) are explicitly not allowed. We write the human readable `if (var == 2)` instead of the much less readable `if (2 == var)`.
+3. In `if` statements, Yoda conditions (i.e. writing `(<constant> == <variable>)`) are explicitly not allowed. We write the human readable `if (var == 2)` instead of the much less readable `if (2 == var)`.
 
     - <small>Instead of making code unreadable by introducing funny-looking equality comparisons, a much better way to protect oneself against accidental assignments (`if (var = 2)`) is to increase the warning level, and to compile cleanly at the highest warning level. All decent compilers will then emit a warning whenever an assignment inside an `if` statement is made. Make sure this warning is enabled.</small>
 
-5. `case` statements that contain several statements inside or contain any local variables should be wrapped with braces. Cases that contain just one statement may be written on one line with the `case` label (and `break` statement, unless the case only consists of a `return` statement).
+4. `case` statements that contain several statements inside or contain any local variables should be wrapped with braces. Cases that contain just one statement may be written on one line with the `case` label (and `break` statement, unless the case only consists of a `return` statement).
 
     The `break` statement should be placed inside the brace scope of each `case` label, so that the only statements outside of the respective brace scopes are the `case` labels themselves.
 
@@ -617,13 +556,13 @@ Also, this is one more reason to cleanly separate function declaration from defi
     }
     ```
 
-6. Avoid using fall-through cases (i.e. no `break` or `return` at the end of a `case` statement). Always provide either a `break` or a `return` statement at the end of each `case` statement. Code lacking either of these statements will be considered erroneous.
+5. Avoid using fall-through cases (i.e. no `break` or `return` at the end of a `case` statement). Always provide either a `break` or a `return` statement at the end of each `case` statement. Code lacking either of these statements will be considered erroneous.
 
-7. Add `default: break;` to the end of each `switch` statement that doesn’t consider all possible cases. This will avoid a compiler warning.
+6. Add `default: break;` to the end of each `switch` statement that doesn’t consider all possible cases. This will avoid a compiler warning.
 
 ## <a name="section_classes"></a>6. Classes
 
-1. Classes and structs are to be formatted and laid out as follows:
+1. Classes and structs should be formatted and laid out in a consistent order, such as:
 
     ```
     class Point
@@ -652,14 +591,13 @@ Also, this is one more reason to cleanly separate function declaration from defi
     }
 
     inline                       // inline keyword is at definition
-    double
-    Point::distance(const Point& other)
+    double Point::distance(const Point& other)
     {
         // ...
     }
     ```
 
-    Stick to this ordering of elements (not all elements have to be present in every class):
+    Prefer this ordering of elements (not all elements have to be present in every class):
 
       1. Constructors, in order of increasing complexity (e.g., default constructor first);
       2. Destructor;
@@ -671,15 +609,15 @@ Also, this is one more reason to cleanly separate function declaration from defi
       8. Private member variables;
       9. Private member functions.
 
-    The initializer list for constructor definitions is always to be placed on a separate line.
+    The initializer list for constructor definitions should always be placed on a separate line, to enhance readability.
 
-2. Strongly prefer using classes (with all members `private`) over structs (with all members public), for the sake of a clean interface. This also allows invariants and other checks to be enforced in getter/setter functions, which greatly contributes to safer code.
+2. Strongly aim to declare all member variables `private`, to increase information hiding.
+Try to prevent designing classes with part of their member variables `private` and others `public`. 
+`private` member variables allow invariants and other checks to be enforced via getter/setter functions, which greatly contributes to safer code.
 
-3. Declare all data members `private`, if possible. Do not design classes with part of their member variables `private` and others `public`. This is usually a sign of lazy programming.
+3. Place only functions into a `protected` section, never any member variables. In case you need to access the data of members in a derived class, do it via `protected` getter/setter functions in the base class.
 
-4. Place only functions into a `protected` section, never any member variables. In case you need to access the data of members in a derived class, do it via `protected` getter/setter functions in the base class.
-
-5. Only use structs with `public` data members for plain data storage (of all members in the respective `struct`). Never make variables `public` when there is even the slightest risk that the user can modify these variables in such a way that the internal state becomes inconsistent.
+4. Only use structs with `public` data members for plain data storage (of all members in the respective `struct`). Never make variables `public` when there is even the slightest risk that the user can modify these variables in such a way that the internal state becomes inconsistent.
 
     Example:
     (Do not do this; instead write an interface that cannot be used incorrectly.)
@@ -698,13 +636,13 @@ Also, this is one more reason to cleanly separate function declaration from defi
     - <small>Rationale [for the three points above]: Declaring data members `private` allows syntactically uniform access to data, fine-grained access control, and provides implementation flexibility (i.e. the internals can change, but the interface stays constant).
 See also Scott Meyers, “Effective C++”, 3rd Edition, Item 22.</small>
 
-6. The order of access modifiers should always be `public`, then `protected`, then `private`. 
+5. The order of access modifiers should be `public`, then `protected`, then `private`. 
 
     - <small>The `public` interface should come first, so that everyone can quickly see how to use a class. Do not “hide” the `public` interface by putting the `private` or `protected` sections first. Consistency is crucial to ensure readability.</small>
 
     - <small>Avoid any repetition of access modifiers; e.g. a `private` section, followed by a `public` section, followed by a `private` section.</small>
 
-7. Ensure that all non-POD classes and structs have proper constructors. Structs where a user has to explicitly assign the `struct` members are considered bad design.
+6. Ensure that all non-POD classes and structs have proper constructors. Structs where a user has to explicitly assign the `struct` members are considered bad design.
 
     Bad example:
   
@@ -721,7 +659,7 @@ See also Scott Meyers, “Effective C++”, 3rd Edition, Item 22.</small>
     p.y = 0.0f; // not even be possible with proper class design.
     ```
 
-8. In constructor definitions, aim to initialize all variables via the initializer list. Explicit assignment inside the constructor is only allowed in cases where initialization via the initializer list is impossible.
+7. In constructor definitions, aim to initialize all variables via the initializer list. Explicit assignment inside the constructor is only allowed in cases where initialization via the initializer list is impossible.
 
     Example:
   
@@ -735,41 +673,26 @@ See also Scott Meyers, “Effective C++”, 3rd Edition, Item 22.</small>
 
     - <small>Explicit assignment inside the constructor leads to default construction of the member followed by re-assignment, which is often more inefficient than direct construction.</small>
 
-9. Class member variables have to be initialized in constructor initializer lists in exactly the same order as they are declared in the class. This avoids potentially wrong initializations (and compiler warnings about it).
+8. Class member variables have to be initialized in constructor initializer lists in exactly the same order as they are declared in the class. This avoids potentially wrong initializations (and compiler warnings about it).
 
-10. The initializer list can be formatted to either be on one single line, or contain each variable on a separate line. The latter case is preferable when many variables are to be initialized. Keep the comma at the end of the line and indent with two additional spaces at the beginning of each extra line.
-
-    Example:
-  
-    ```
-    Point::Point(float px, float py, float pz)
-        : x(px), y(py), z(pz)
-
-    Point::Point(float px, float py, float pz)
-        : x(px),
-          y(py),
-          z(pz)
-    ```
-
-11. Always make sure that *all* member variables of a class are properly initialized in every constructor.
+9. Always make sure that *all* member variables of a class are properly initialized in every constructor.
 
     Non-trivial types with default constructors often do not need to be listed explicitly should they be default constructed, but never leave built-in types such as integers or floating point numbers uninitialized.
 
-12. Prefer to explicitly list the copy constructor, the copy assignment operator, the move constructor as well as the move assignment operator, even if they are just defaulted or deleted (as in the example above).
+10. Prefer to explicitly list the copy constructor, the copy assignment operator, the move constructor as well as the move assignment operator, even if they are just defaulted or deleted (as in the example above).
 
     - <small>The above mentioned constructors/operators can be default generated (without having to be mentioned in code) as long as the class does not have a user-defined destructor. However, for reasons of code clarity, it is greatly preferable to explicitly state the intent (e.g. defaulted, deleted, or custom implementation).
 See also Scott Meyers, “Effective Modern C++”, Item 17.</small>
 
-13. `private` or `protected` member variables are to be suffixed with an underscore (`_`).
+11. `private` or `protected` member variables should be suffixed with an underscore (`_`), to distinguish them from `public` member and non-member variables.
 `public` member variables should have no such suffix.
-The use of prefixes such as `m_` for member variables is discouraged.
 Never use a prefix underscore for any variable definition.
 
     - <small>The suffix underscore is quick and easy to type, and many C++ experts are using this style. It's a unique visual identifier for a (private or protected) member variable.</small>
     - <small>Prefix constructs like `m_index` look too much like Hungarian notation, which is discouraged. Besides, it’s harder to type and looks uglier.</small>
     - <small>Prefix underscores are not allowed by the standard in many cases (e.g. `__`, or `_` followed by an uppercase letter), so it’s better to not be tempted to use them.</small>
 
-14. Cleanly separate member function declaration (inside a class) from member function definition (outside the class, and in a separate translation unit, if not a class template).
+12. Cleanly separate member function declaration (inside a class) from member function definition (outside the class, and in a separate translation unit, if not a class template).
 Exceptions can be made for trivial getter/setter functions, or for very small class implementations.
 
     Example:
@@ -800,9 +723,9 @@ Exceptions can be made for trivial getter/setter functions, or for very small cl
 
     - <small>The class definition provides the interface that a “user” of the class can refer to and obtain a quick summary from. For this reason, it should not consist of a lot of implementation.</small>
 
-15. Methods in translation units should be defined in *exactly* the same order as declared in header files. This greatly simplifies code readability and navigation.
+13. Methods in translation units should be defined in the same order as declared in header files. This greatly simplifies code readability and navigation.
 
-16. Since `public` member variables (inside structs) have no trailing underscore (`_`), write constructors like this (i.e. use trailing underscores for the constructor function arguments instead):
+14. Since `public` member variables (inside structs) have no trailing underscore (`_`), write constructors like this (i.e. use trailing underscores for the constructor function arguments instead):
 
     ```
     struct Point
@@ -816,17 +739,17 @@ Exceptions can be made for trivial getter/setter functions, or for very small cl
     };
     ```
 
-17. Do not shadow variables declared in classes/structs. For example, do not name a local variable `x` if you have a public member variable `x` in the same class.
+15. Do not shadow variables declared in classes/structs. For example, do not name a local variable `x` if you have a public member variable `x` in the same class.
 
     Avoid constructions such as `this->x = x;`. Exception: when you need a nondependent name from a dependent base class (for a full explanation, <a href="https://isocpp.org/wiki/faq/templates#nondependent-name-lookup-members">see here</a>).
 
-18. All virtual function overrides should be qualified with the `override` keyword.
+16. All virtual function overrides should be qualified with the `override` keyword.
 
     This enables better compile-time checking whether a function is indeed meant to be overridden, and can prevent the classical bug of either the function name or the arguments being all so slightly different.
   
     Virtual function overrides not qualified with the `override` keyword will be considered erroneous.
 
-19. Always enforce const-correctness: Make functions that do not modify (visible) state `const`, otherwise non-const. The virality of const-ness is a feature, not a bug.
+17. Always enforce const-correctness: Make functions that do not modify (visible) state `const`, otherwise non-const. The virality of const-ness is a feature, not a bug.
 
     Code that is not const-correct will be considered erroneous.
 
@@ -914,7 +837,26 @@ In particular, define for-loop variables inside the for-loop if they are not use
 
 2. Always initialize variables at the point of definition, unless there is a very compelling (performance) reason not to so do.
 
-3. Make use of automatic type deduction (via the `auto` keyword) wherever it makes sense. Aim to prefer using `auto` over explicit type declarations, but feel free to explicitly specify the type whenever it helps readability.
+3. Only ever declare one variable per line. Avoid placing multiple variable declarations on the same line.
+
+    Example:
+  
+    ```  
+    int x = 0;
+    int y = 0;
+    ```
+
+    Not:
+
+    ```
+    int x = 0, y = 0;
+    ```
+
+    - <small>This greatly enhances code readability.</small>
+
+    - <small>It also fixes the unfortunate language defect inherited from C, where `int* p, q;` declares one pointer and one non-pointer variable. Obviously, writing `int* p, *q;` or `int *p, *q;` should be avoided, as it would break the rule above.</small>
+
+4. Make use of automatic type deduction (via the `auto` keyword) wherever it makes sense. Aim to prefer using `auto` over explicit type declarations, but feel free to explicitly specify the type whenever it helps readability.
   
     Specify the type when explicit conversions are desired. In this case, consider using the left-to-right auto syntax (`auto var = Type(init);`) over the old-style syntax (`Type var(init);`). The former is more uniform, considering function return syntax and the `std::make_*` helper functions.
   
@@ -1018,7 +960,8 @@ In particular, define for-loop variables inside the for-loop if they are not use
 
 ## <a name="section_enumerations"></a>10. Enumerations
 
-1. Enumeration types, as well as the contained enumerators, shall always begin with an uppercase letter. Avoid writing the enumerators in all-uppercase notation.
+1. Enumeration types, as well as the contained enumerators, shall begin with an uppercase letter.
+Avoid writing the enumerators in all-uppercase notation.
 
     Example:
   
@@ -1246,24 +1189,7 @@ Convert existing code using `enum` to make use of `enum class` instead.
  
     All library code should be part of a namespace, which is either a company-wide or library-wide identifier.
 
-2. Use a fixed top-level namespace per library, and a sub-namespace for each sub-module inside the library.
-
-    Example:
-    All code for the library “foo” should be wrapped inside
-  
-    ```
-    namespace foo
-    {
-
-        // ...
-
-    } // namespace foo
-    ```
-
-    Make sure you avoid Egyptian-style braces (`namespace foo {`), as in every other case. Do not indent the code inside `namespace` statements.
-    Always repeat the namespace statement as a comment after the closing brace (see example above), in order to allow quick visual matching of braces.
-
-3. Use sub-namespaces whenever there is a logical separation between concerns. Always maintain this clear separation.
+2. Consider using a fixed top-level namespace per library, and a sub-namespace for each sub-module inside the library.
 
     Example:
   
@@ -1294,6 +1220,16 @@ Convert existing code using `enum` to make use of `enum class` instead.
     } // namespace foo
     ```
 
+3. Repeating the namespace statement as a comment after the closing brace (see example above) allows quick visual matching of braces.
+
+    Example:
+  
+    ```
+    namespace foo
+    {
+    } // namespace foo
+    ```
+
 4. The names of namespaces should be short, meaningful, concise, and all lower-case. Try to avoid use of underscores inside namespace names.
 
     Good namespace names are, e.g. `img`, `math`, `util`, etc.
@@ -1304,9 +1240,9 @@ Convert existing code using `enum` to make use of `enum class` instead.
 
 5. Never ever use a `using namespace` statement at global or namespace scope in a header file.
 
-    This is strongly disallowed, since it would pollute the global or respective namespace for every file that includes said header file.
+    This is strongly discouraged, since it would pollute the global or respective namespace for every file that includes said header file.
 
-6. Use of `using namespace` statements (except for `using namespace std;`!) is expressly permitted inside translation units, as long as the likelihood of ambiguity or naming clashes remains low, and readability remains preserved. If in doubt, explicitly prefix the namespace.
+6. Use of `using namespace` statements (except for `using namespace std;`!) is generally permitted inside translation units, as long as the likelihood of ambiguity or naming clashes remains low, and readability remains preserved. If in doubt, explicitly prefix the namespace.
 
     Inside translation units, prefer using the `using namespace` statements at function scope instead of global scope.
 
@@ -1451,7 +1387,7 @@ Even if you think that introducing global state might be a good idea, think twic
 
 ## <a name="section_file_organization"></a>18. File organization / Includes
 
-1. Each header file should contain the definition of at most one `class` or `struct`, i.e. separate class definitions should reside in separate header files, with the possible exception of very small helper classes, structures or enums that are to be used only in context with the "main" class.
+1. Each header file should ideally contain the definition of at most one `class` or `struct`, i.e. separate class definitions should reside in separate header files, with the possible exception of very small helper classes, structures or enums that are to be used only in context with the "main" class.
 
     Thus, there should be a header and a translation unit pair for each class, unless the implementation is header-only. The names of the header file and of the translation unit should correspond to the name of the main class.
 
@@ -1501,8 +1437,6 @@ Even if you think that introducing global state might be a good idea, think twic
 
     - <small>Any separation between include files and translation units is bound to be arbitrary. Often, the include file contains the implementation, and there might not even be a corresponding translation unit. By keeping both files together, they are easily retrievable in your favorite IDE or file manager.</small>
 
-    - <small>We are not writing redistributable libraries, where this separation might matter. Even then, include files that form a public API could be copied out in a post-build step.</small>
-
 5. Translation unit files should have a `.cpp` extension, header files should end with `.hpp`. The use of `.h` file suffixes for C++ headers is discouraged.
 
     - <small>Rationale: Clearly disambiguate C\+\+ header files from C headers.</small>
@@ -1521,7 +1455,7 @@ Even if you think that introducing global state might be a good idea, think twic
     or, alternatively, use the non-standard but very widely supported `#pragma once` directive:
 
     ```
-    #pragma once        // This is very useful, indeed. But non-standard, so YMMV.
+    #pragma once        // This is convenient but non-standard, so YMMV.
     
     // Your code
     ```
