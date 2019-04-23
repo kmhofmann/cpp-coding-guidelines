@@ -87,30 +87,32 @@
 
     - <small>We don’t want to artificially increase compile times by including too much. We don’t want to include too little either - what might compile on one platform might not on the other, because include dependencies are handled differently inside the standard library.</small>
 
-8. Prefer the order of includes happening in the following order:
-    - standard library includes
-    - external library includes (from most generic to most specific library)
-    - internal library includes (from most generic to most specific library)
+8. Prefer the order of includes in the following order:
     - includes from current project
+    - internal library includes (from most specific to most generic library)
+    - external library includes (from most specific to most generic library)
+    - standard library includes
 
-    Use empty lines liberally to delineate blocks of includes. Includes inside one block should ideally be ordered lexicographically, so that they can be easily found.
+    This may expose missing includes in included library headers earlier.
+
+    Use empty lines to delineate blocks of includes. Includes inside one block should ideally be ordered lexicographically, so that they can be easily found.
   
     Example:
   
     ```cpp
-    #include <array>
-    #include <memory>
-    #include <vector>
-
-    #include <boost/filesystem.hpp>
-
-    #include <Eigen/Core>
-
+    #include <bar/Widget.hpp>
+    #include <bar/Gadget.hpp>
+    
     #include <foo/Assert.hpp>
     #include <foo/Log.hpp>
 
-    #include <bar/Widget.hpp>
-    #include <bar/Gadget.hpp>
+    #include <Eigen/Core>
+
+    #include <boost/filesystem.hpp>
+    
+    #include <array>
+    #include <memory>
+    #include <vector>
     ```
 
 9. Avoid using the `<xxx.h>` C compatibility headers; use the `<cxxx>` alternatives instead.
